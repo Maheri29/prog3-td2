@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: Team matches management API
+  description: Team matches management API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /matches:
+    get:
+      summary: get all matches
+      tags:
+        - Matches
+      operationId: getMatches
+      responses:
+        200:
+          description: list of all matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+  /players:
+    get:
+      summary: get all players
+      tags:
+        - Players
+      operationId: getPlayers
+      responses:
+        200:
+          description: list of all players
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+  /teams:
+    get:
+      summary: get all teams
+      tags:
+        - Teams
+      operationId: getTeams
+      responses:
+        200:
+          description: list of all teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+components:
+  schemas:
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+        sponsors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sponsor'
+    Sponsor:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Match:
+      type: object
+      properties:
+        id:
+          type: string
+        teamA:
+          $ref: '#/components/schemas/Team'
+        teamB:
+          $ref: '#/components/schemas/Team'
+        datetime:
+          type: string
+          format: date-time
+
